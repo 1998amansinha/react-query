@@ -3,7 +3,7 @@ import { useQuery } from "@tanstack/react-query";
 import "./App.css";
 
 const App = () => {
-  const { isPending, docs, error } = useQuery({
+  const { isPending, data, error } = useQuery({
     queryKey: ["docs"],
     queryFn: () =>
       fetch("https://openlibrary.org/search/authors.json?q=twain").then((res) =>
@@ -17,11 +17,13 @@ const App = () => {
 
   return (
     <>
-    {docs.map((docs) => 
-    <>
-    {docs.name}
-    </>
-    )}
+      {data?.docs.map((docs) => (
+        <>
+          <h4>Name : {docs.name}</h4>
+          <h6>Top Work : {docs.top_work}</h6>
+          <br />
+        </>
+      ))}
     </>
   );
 };
